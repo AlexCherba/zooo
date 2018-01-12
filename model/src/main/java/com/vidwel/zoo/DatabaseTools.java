@@ -66,7 +66,7 @@ final class DatabaseTools {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        try (Connection dbConnection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
+        try (Connection dbConnection = getConnection();
              Statement statement = dbConnection.createStatement()) {
         } catch (SQLException e) {
             try (Connection dbConnection = DriverManager.getConnection(DB_URL_ROOT, DB_USERNAME, DB_PASSWORD);
@@ -80,6 +80,10 @@ final class DatabaseTools {
                 e1.printStackTrace();
             }
         }
+    }
+
+    private static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
     }
 
     static boolean addZoo(String name, String address) {
