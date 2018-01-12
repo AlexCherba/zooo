@@ -1,20 +1,23 @@
 package com.vidwel.zoo;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class CreateZooServlet extends HttpServlet {
+public class IndexServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doPost(req, resp);
+        System.out.println("IndexServlet");
+        req.getRequestDispatcher("/html/index.html").forward(req,resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("CreateZooServlet");
-        req.getRequestDispatcher("/html/create_zoo.html").forward(req,resp);
+    public void init() throws ServletException {
+        super.init();
+        System.out.println("init of IndexServlet");
+        DatabaseTools.init();
     }
 }

@@ -6,6 +6,15 @@
   <display-name>Archetype Created Web Application</display-name>
 
   <servlet>
+    <servlet-name>IndexServlet</servlet-name>
+    <servlet-class>com.vidwel.zoo.IndexServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>IndexServlet</servlet-name>
+    <url-pattern></url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>CreateZooServlet</servlet-name>
     <servlet-class>com.vidwel.zoo.CreateZooServlet</servlet-class>
   </servlet>

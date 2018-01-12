@@ -12,11 +12,9 @@ final class DatabaseTools {
     private static final String DB_URL = "jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME + "?useSSL=false";
     private static final String DB_URL_ROOT = "jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME_ROOT + "?useSSL=false";
 
-    static {
+    static void init() {
         String str1 = "CREATE DATABASE IF NOT EXISTS `" + DB_NAME + "` CHARACTER SET 'utf8'";
-
         String str2 = "USE `" + DB_NAME + "`";
-
         String str3 = "CREATE TABLE IF NOT EXISTS `" + DB_NAME + "`.`tb_animal` (" +
                 "  `ID_ANIMAL` INT(11) NOT NULL AUTO_INCREMENT," +
                 "  `TYPE` VARCHAR(60) NOT NULL," +
@@ -28,7 +26,6 @@ final class DatabaseTools {
                 "  UNIQUE INDEX `TYPE_UNIQUE` (`TYPE` ASC)) " +
                 "ENGINE = InnoDB " +
                 "DEFAULT CHARACTER SET = utf8;";
-
         String str4 = "CREATE TABLE IF NOT EXISTS `" + DB_NAME + "`.`tb_zoo` (" +
                 "  `ID_ZOO` INT(11) NOT NULL AUTO_INCREMENT," +
                 "  `NAME` VARCHAR(40) NOT NULL," +
@@ -39,7 +36,6 @@ final class DatabaseTools {
                 "ENGINE = InnoDB " +
                 "AUTO_INCREMENT = 3 " +
                 "DEFAULT CHARACTER SET = utf8;";
-
         String str5 = "CREATE TABLE IF NOT EXISTS `" + DB_NAME + "`.`tb_animals` (" +
                 "  `ID_ANIMALS` INT(11) NOT NULL AUTO_INCREMENT," +
                 "  `ID_ZOO` INT(11) NULL DEFAULT NULL," +
@@ -84,16 +80,5 @@ final class DatabaseTools {
                 e1.printStackTrace();
             }
         }
-    }
-
-    private static void connect() throws SQLException {
-    }
-
-    protected static void initialization() {
-
-    }
-
-    private static boolean isExistDatabase() {
-        return false;
     }
 }
