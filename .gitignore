@@ -1,0 +1,7 @@
+*.[oa]
+*~
+
+# files of IDEA
+.idea/
+out/
+*.iml
