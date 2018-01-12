@@ -1,0 +1,35 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+
+  <servlet>
+    <servlet-name>CreateZooServlet</servlet-name>
+    <servlet-class>com.vidwel.zoo.CreateZooServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreateZooServlet</servlet-name>
+    <url-pattern>/createzoo</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>AddAnimalZooServlet</servlet-name>
+    <servlet-class>com.vidwel.zoo.AddAnimalZooServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddAnimalZooServlet</servlet-name>
+    <url-pattern>/addanimal</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ViewAnimalsZooServlet</servlet-name>
+    <servlet-class>com.vidwel.zoo.ViewAnimalsZooServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ViewAnimalsZooServlet</servlet-name>
+    <url-pattern>/viewanimals</url-pattern>
+  </servlet-mapping>
+
+</web-app>
