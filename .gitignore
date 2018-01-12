@@ -4,4 +4,5 @@
 # files of IDEA
 .idea/
 out/
+target/
 *.iml
