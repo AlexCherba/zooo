@@ -90,7 +90,7 @@ final class DatabaseTools {
         return false;
     }
 
-    static boolean addAnimal(int idZoo, int idType, String name, String age, Date String address) {
+    static boolean addAnimal(int idZoo, int idType, String name, String age, Date date, String address) {
         return false;
     }
 
