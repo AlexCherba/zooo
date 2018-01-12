@@ -81,4 +81,17 @@ final class DatabaseTools {
             }
         }
     }
+
+    static boolean addZoo(String name, String address) {
+        return false;
+    }
+
+    static boolean addTypeAnimal(String type, String location, String maxAge, Object photo, String comment) {
+        return false;
+    }
+
+    static boolean addAnimal(int idZoo, int idType, String name, String age, Date String address) {
+        return false;
+    }
+
 }
