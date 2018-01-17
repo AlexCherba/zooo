@@ -86,9 +86,40 @@ final class DatabaseTools {
         return DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
     }
 
+
+    //preparedStatement.setTimestamp(4, getCurrentTimeStamp());
+
+
+    static boolean isValue(Connection dbConnection, String table, String column, String value) throws SQLException {
+        String str = "SELECT * FROM " + DB_NAME + "." + table + " WHERE " + column + " = ? ;";
+        //String str = "SELECT * FROM zoo_db.tb_zoo WHERE ADDRESS ='Киев1';";
+        System.out.println(str);
+        PreparedStatement ps = dbConnection.prepareStatement(str);
+        ps.s
+        ps.setString(1, value);
+        if (ps.executeQuery().next()) return true;
+        return false;
+
+        String strDb = "SELECT * FROM ?.? WHERE ? = ?";
+        PreparedStatement ps = dbConnection.prepareStatement(strDb);
+
+    }
+
     static boolean addZoo(String name, String address) {
+        String str = "INSERT INTO `" + DB_NAME + "`.`tb_zoo` (NAME,ADDRESS) VALUES(?,?);";
+        try (Connection dbConnection = getConnection()) {
+            System.out.println(isValue(dbConnection, "tb_zoo", "ADDRESS", address));
+//            PreparedStatement ps = dbConnection.prepareStatement(str);
+//            ps.setString(1, name);
+//            ps.setString(2, address);
+//            return ps.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return false;
     }
+
+    //INSERT INTO `zoo_db`.`tb_zoo` (NAME,ADDRESS) VALUES('Харьковский зоопарк','Харьков');
 
     static boolean addTypeAnimal(String type, String location, String maxAge, Object photo, String comment) {
         return false;

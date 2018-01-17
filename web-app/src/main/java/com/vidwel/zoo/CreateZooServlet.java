@@ -15,6 +15,7 @@ public class CreateZooServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("CreateZooServlet");
+        System.out.println("ADD ZOO " + DatabaseTools.addZoo("Киевский зоопарк", "Киев"));
         req.getRequestDispatcher("/html/create_zoo.html").forward(req,resp);
     }
 }
