@@ -10,6 +10,9 @@
           <element id="archive" name="model-1.0-SNAPSHOT.jar">
             <element id="module-output" name="model" />
           </element>
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.9.3" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.9.3" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.45" />
         </element>
       </element>
