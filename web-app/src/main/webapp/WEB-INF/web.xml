@@ -15,12 +15,12 @@
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>CreateZooServlet</servlet-name>
-    <servlet-class>com.vidwel.zoo.CreateZooServlet</servlet-class>
+    <servlet-name>AddZooServlet</servlet-name>
+    <servlet-class>com.vidwel.zoo.AddZooServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>CreateZooServlet</servlet-name>
-    <url-pattern>/createzoo</url-pattern>
+    <servlet-name>AddZooServlet</servlet-name>
+    <url-pattern>/add_zoo</url-pattern>
   </servlet-mapping>
 
   <servlet>
@@ -29,7 +29,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>AddAnimalZooServlet</servlet-name>
-    <url-pattern>/addanimal</url-pattern>
+    <url-pattern>/add_animal</url-pattern>
   </servlet-mapping>
 
   <servlet>
@@ -38,7 +38,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>ViewAnimalsZooServlet</servlet-name>
-    <url-pattern>/viewanimals</url-pattern>
+    <url-pattern>/view_animals</url-pattern>
   </servlet-mapping>
 
 </web-app>

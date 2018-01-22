@@ -22,10 +22,26 @@ function addNewZoo() {
     var cell0 = newRow.insertCell(0);
     var cell1 = newRow.insertCell(1);
     var cell2 = newRow.insertCell(2);
-
     cell0.innerHTML = 0;
     cell1.innerHTML = nameZoo;
     cell2.innerHTML = locationZoo;
+
+    $.ajax({
+        type: "POST",
+        url: "/add_zoo",
+        dataType: "json",
+        data: {
+            nameZoo: nameZoo,
+            locationZoo: locationZoo
+        },
+        success: function (data) {
+            var isAddZoo = data.isAddZoo;
+        }
+    });
+
+    //success: function (data) {
+    //    document.getElementById("result").innerText = data.result;
+    //}
 
     /*
     $.ajax({

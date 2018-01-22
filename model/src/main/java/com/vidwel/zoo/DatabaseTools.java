@@ -95,14 +95,10 @@ final class DatabaseTools {
         //String str = "SELECT * FROM zoo_db.tb_zoo WHERE ADDRESS ='Киев1';";
         System.out.println(str);
         PreparedStatement ps = dbConnection.prepareStatement(str);
-        ps.s
+        //ps.s
         ps.setString(1, value);
         if (ps.executeQuery().next()) return true;
         return false;
-
-        String strDb = "SELECT * FROM ?.? WHERE ? = ?";
-        PreparedStatement ps = dbConnection.prepareStatement(strDb);
-
     }
 
     static boolean addZoo(String name, String address) {
