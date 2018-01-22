@@ -2,7 +2,7 @@ package com.vidwel.zoo;
 
 import java.sql.*;
 
-final class DatabaseTools {
+final class DbTools {
     private static final String DB_HOST = "localhost";
     private static final String DB_PORT = "3306";
     private static final String DB_NAME = "zoo_db";
@@ -93,7 +93,7 @@ final class DatabaseTools {
     static boolean isValue(Connection dbConnection, String table, String column, String value) throws SQLException {
         String str = "SELECT * FROM " + DB_NAME + "." + table + " WHERE " + column + " = ? ;";
         //String str = "SELECT * FROM zoo_db.tb_zoo WHERE ADDRESS ='Киев1';";
-        System.out.println(str);
+        //System.out.println(str);
         PreparedStatement ps = dbConnection.prepareStatement(str);
         //ps.s
         ps.setString(1, value);
@@ -104,11 +104,15 @@ final class DatabaseTools {
     static boolean addZoo(String name, String address) {
         String str = "INSERT INTO `" + DB_NAME + "`.`tb_zoo` (NAME,ADDRESS) VALUES(?,?);";
         try (Connection dbConnection = getConnection()) {
-            System.out.println(isValue(dbConnection, "tb_zoo", "ADDRESS", address));
-//            PreparedStatement ps = dbConnection.prepareStatement(str);
-//            ps.setString(1, name);
-//            ps.setString(2, address);
-//            return ps.execute();
+            boolean valueExist = isValue(dbConnection, "tb_zoo", "NAME", name);
+            System.out.println("checkValue: " + valueExist);
+            if (!valueExist) {
+                PreparedStatement ps = dbConnection.prepareStatement(str);
+                ps.setString(1, name);
+                ps.setString(2, address);
+                ps.execute();
+                return true;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

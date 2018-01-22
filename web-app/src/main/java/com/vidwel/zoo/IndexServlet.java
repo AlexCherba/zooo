@@ -1,6 +1,5 @@
 package com.vidwel.zoo;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +17,6 @@ public class IndexServlet extends HttpServlet {
     public void init() throws ServletException {
         super.init();
         System.out.println("init of IndexServlet");
-        DatabaseTools.init();
+        Zoo.init();
     }
 }
