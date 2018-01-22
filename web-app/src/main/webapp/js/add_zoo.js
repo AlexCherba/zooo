@@ -13,18 +13,30 @@ var tbZoos = doc.getElementById("tb_zoo");
 
 //tbZoos.innerHTML("tr");
 
+//Test Data about zoos
+var dataTableFromServer = {
+    "Харьковский зоопарк": "Харьков",
+    "Киевский зоопарк": "Киев",
+};
+
+viewTableZoo(dataTableFromServer);
+
+function viewTableZoo(allZoo) {
+    var table = doc.getElementById("tb_zoo");
+    var newRow;
+    var i = 1;
+    for (var key in allZoo) {
+        //or newRow = table.insertRow(table.rows.length);
+        newRow = table.insertRow();
+        newRow.insertCell(0).innerHTML = i++;
+        newRow.insertCell(1).innerHTML = key;
+        newRow.insertCell(2).innerHTML = allZoo[key];
+    }
+}
+
 function addNewZoo() {
     var nameZoo = doc.getElementById("nameZoo").value;
     var locationZoo = doc.getElementById("locationZoo").value;
-    var table = doc.getElementById("tb_zoo");
-    // or var newRow = table.insertRow();
-    var newRow = table.insertRow(table.rows.length);
-    var cell0 = newRow.insertCell(0);
-    var cell1 = newRow.insertCell(1);
-    var cell2 = newRow.insertCell(2);
-    cell0.innerHTML = 0;
-    cell1.innerHTML = nameZoo;
-    cell2.innerHTML = locationZoo;
 
     $.ajax({
         type: "POST",
@@ -35,6 +47,7 @@ function addNewZoo() {
             locationZoo: locationZoo
         },
         success: function (data) {
+             viewTableZoo(data);
             var isAddZoo = data.isAddZoo;
         }
     });
