@@ -37,18 +37,23 @@ function viewTableZoo(allZoo) {
 function addNewZoo() {
     var nameZoo = doc.getElementById("nameZoo").value;
     var locationZoo = doc.getElementById("locationZoo").value;
-
+    var reqData = {
+        "nameZoo": nameZoo,
+        "locationZoo": locationZoo,
+    }
     $.ajax({
         type: "POST",
         url: "/add_zoo",
         dataType: "json",
-        data: {
-            nameZoo: nameZoo,
-            locationZoo: locationZoo
+        //data: reqData,
+        data: JSON.stringify(reqData),
+        success: function (respData) {
+            // this prints out your data
+            console.log("1. " + respData.one, "2. " + respData.two);
+            console.log("successful", respData);
         },
-        success: function (data) {
-             viewTableZoo(data);
-            var isAddZoo = data.isAddZoo;
+        error:function(data,status,er) {
+            alert("error: "+data+" status: "+status+" er:"+er);
         }
     });
 
