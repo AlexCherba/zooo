@@ -1,6 +1,7 @@
 package com.vidwel.zoo;
 
 import java.sql.*;
+import java.util.List;
 
 final class DbTools {
     private static final String DB_HOST = "localhost";
@@ -95,11 +96,27 @@ final class DbTools {
         //String str = "SELECT * FROM zoo_db.tb_zoo WHERE ADDRESS ='Киев1';";
         //System.out.println(str);
         PreparedStatement ps = dbConnection.prepareStatement(str);
-        //ps.s
         ps.setString(1, value);
         if (ps.executeQuery().next()) return true;
         return false;
     }
+
+    static List getAllZoo() throws SQLException {
+        String str = "SELECT * FROM " + DB_NAME + ".tb_zoo ;";
+        try (Connection dbConnection = getConnection()) {
+            PreparedStatement ps = dbConnection.prepareStatement(str);
+            ps.execute();
+            return true;
+        }
+    } catch(
+    SQLException e)
+
+    {
+        e.printStackTrace();
+    }
+
+        return;
+}
 
     static boolean addZoo(String name, String address) {
         String str = "INSERT INTO `" + DB_NAME + "`.`tb_zoo` (NAME,ADDRESS) VALUES(?,?);";

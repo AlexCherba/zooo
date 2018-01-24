@@ -21,8 +21,19 @@ public class AddZooServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-// 1. get received JSON data from request
         String json = "";
+        String name = req.getParameter("nameZoo");
+        String location = req.getParameter("locationZoo");
+        boolean isAddZoo = new ManagerZoo().addZoo(name,location);
+        if (isAddZoo) {
+            //json =
+            System.out.println("Add new zoo is " + true);
+        }
+        else System.out.println("Add new zoo is " +  false);
+
+
+
+// 1. get received JSON data from request
         BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream()));
         if(br != null){
             json = br.readLine();
