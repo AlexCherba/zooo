@@ -1,30 +1,27 @@
 /**
  * Created by cube on 28.12.2017.
  */
-var respData = {};
+var tbObject;
 var doc = document;
 var elem = doc.createElement("p");
 var content = doc.createTextNode("Existing Zoos:");
 elem.appendChild(content);
 
-//Test Data about zoos
-var dataTableFromServer = {
-    "Харьковский зоопарк": "Харьков",
-    "Киевский зоопарк": "Киев",
-};
+addNewZoo();
 
-viewTableZoo(dataTableFromServer);
-
-function viewTableZoo(allZoo) {
+function viewTableZoo(tbObject) {
     var table = doc.getElementById("tb_zoo");
+    var length =  table.rows.length;
+        for (var i = 1; i < length; i++) {
+            table.deleteRow(1);
+        }
     var newRow;
-    var i = 1;
-    for (var key in allZoo) {
-        //or newRow = table.insertRow(table.rows.length);
+    for (var row in tbObject) {
         newRow = table.insertRow();
-        newRow.insertCell(0).innerHTML = i++;
-        newRow.insertCell(1).innerHTML = key;
-        newRow.insertCell(2).innerHTML = allZoo[key];
+        var i = 0;
+        for(var key in tbObject[row])(
+            newRow.insertCell(i++).innerHTML = tbObject[row][key]
+        )
     }
 }
 
@@ -40,8 +37,9 @@ function addNewZoo() {
         //data: JSON.stringify(reqData),
         data: reqData,
         success: function (resp) {
-            respData = JSON.parse(resp);
-            console.log("successful", respData);
+            tbObject = JSON.parse(resp);
+            console.log("successful", tbObject);
+            viewTableZoo(tbObject);
         },
         error:function(resp,status,err) {
             alert("error: "+resp+" status: "+status+" er:"+err);
