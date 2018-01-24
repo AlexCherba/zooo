@@ -13,3 +13,7 @@ function tryToGame() {
         }
     });
 }
+
+function showAnimals() {
+    document.location.href = 'animalList.html';
+}

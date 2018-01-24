@@ -2,6 +2,7 @@ package com.vidwel.zoo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ManagerZoo {
     private List<Zoo> zooArrayList;
@@ -17,8 +18,7 @@ public class ManagerZoo {
         return true;
     }
 
-    public List<Zoo> getAllZoo() {
-        zooArrayList = DbTools.getAllZoo();
-        return zooArrayList;
+    public static List<Map<Integer,String>> getAllZoo() {
+        return DbTools.getAllZoo();
     }
 }

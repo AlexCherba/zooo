@@ -37,7 +37,8 @@ function addNewZoo() {
         type: "POST",
         url: "/add_zoo",
         dataType: "json",
-        data: JSON.stringify(reqData),
+        //data: JSON.stringify(reqData),
+        data: reqData,
         success: function (resp) {
             respData = JSON.parse(resp);
             console.log("successful", respData);

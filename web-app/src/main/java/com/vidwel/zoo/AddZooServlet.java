@@ -11,7 +11,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class AddZooServlet extends HttpServlet {
     @Override
@@ -24,28 +27,24 @@ public class AddZooServlet extends HttpServlet {
         String json = "";
         String name = req.getParameter("nameZoo");
         String location = req.getParameter("locationZoo");
-        boolean isAddZoo = new ManagerZoo().addZoo(name,location);
+        System.out.println("name " + name + ", location " + location);
+        boolean isAddZoo = new ManagerZoo().addZoo(name, location);
         if (isAddZoo) {
-            //json =
             System.out.println("Add new zoo is " + true);
-        }
-        else System.out.println("Add new zoo is " +  false);
+        } else System.out.println("Add new zoo is " + false);
 
 
 
 // 1. get received JSON data from request
-        BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream()));
-        if(br != null){
-            json = br.readLine();
-        }
-        System.out.println(json);
-        json = "{\"one\":\"odin\",\"two\":\"dva\"}";
-        //json = "\'name\"=\"coco\"";
+//        BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream()));
+//        if(br != null) json = br.readLine();
+//        System.out.println(json);
+//        json = "{\"one\":\"odin\",\"two\":\"dva\"}";
 
+        List<Map<Integer,String>> mapList = ManagerZoo.getAllZoo();
         ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(resp.getOutputStream(),json);
-        return;
-
+        json = mapper.writeValueAsString(mapList);
+        mapper.writeValue(resp.getOutputStream(), json);
 /*
 
         System.out.println("AddZooServlet");

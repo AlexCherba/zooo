@@ -1,7 +1,8 @@
 package com.vidwel.zoo;
 
 import java.sql.*;
-import java.util.List;
+import java.sql.Date;
+import java.util.*;
 
 final class DbTools {
     private static final String DB_HOST = "localhost";
@@ -101,22 +102,31 @@ final class DbTools {
         return false;
     }
 
-    static List getAllZoo() throws SQLException {
-        String str = "SELECT * FROM " + DB_NAME + ".tb_zoo ;";
-        try (Connection dbConnection = getConnection()) {
-            PreparedStatement ps = dbConnection.prepareStatement(str);
-            ps.execute();
-            return true;
+    static List<Map<Integer,String>> getSelect(String str) {
+        //String str = "SELECT * FROM " + DB_NAME + ".tb_zoo ;";
+        List<Map<Integer,String>> resultMapList = new ArrayList<Map<Integer, String>>();
+        try (Connection dbConnection = getConnection(); Statement statement = dbConnection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(str);
+            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+            int numberOfColumns = resultSetMetaData.getColumnCount();
+            while (resultSet.next()) {
+                Map<Integer,String> map = new TreeMap<Integer, String>();
+                for (int column = 1; column <= numberOfColumns; column++) {
+                    map.put(column,resultSet.getString(column));
+                    //if (column == numberOfColumns) resultMapList.add(map);
+                }
+                resultMapList.add(map);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch(
-    SQLException e)
-
-    {
-        e.printStackTrace();
+        return resultMapList;
     }
 
-        return;
-}
+    static List<Map<Integer,String>> getAllZoo() {
+        String str = "SELECT * FROM " + DB_NAME + ".tb_zoo ;";
+        return getSelect(str);
+    }
 
     static boolean addZoo(String name, String address) {
         String str = "INSERT INTO `" + DB_NAME + "`.`tb_zoo` (NAME,ADDRESS) VALUES(?,?);";
