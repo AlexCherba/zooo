@@ -16,7 +16,7 @@
 
   <servlet>
     <servlet-name>AddZooServlet</servlet-name>
-    <servlet-class>com.vidwel.zoo.AddZooServlet</servlet-class>
+    <servlet-class>com.vidwel.zoo.ManagerZooServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>AddZooServlet</servlet-name>

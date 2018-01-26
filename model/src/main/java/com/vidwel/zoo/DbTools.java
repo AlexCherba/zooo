@@ -17,11 +17,11 @@ final class DbTools {
     static void init() {
         String str1 = "CREATE DATABASE IF NOT EXISTS `" + DB_NAME + "` CHARACTER SET 'utf8'";
         String str2 = "USE `" + DB_NAME + "`";
-        String str3 = "CREATE TABLE IF NOT EXISTS `" + DB_NAME + "`.`tb_animal` (" +
-                "  `ID_ANIMAL` INT(11) NOT NULL AUTO_INCREMENT," +
+        String str3 = "CREATE TABLE IF NOT EXISTS `" + DB_NAME + "`.`tb_type` (" +
+                "  `ID_TYPE` INT(11) NOT NULL AUTO_INCREMENT," +
                 "  `TYPE` VARCHAR(60) NOT NULL," +
-                "  `LOCATION` VARCHAR(100) NULL DEFAULT NULL," +
                 "  `MAX_AGE` INT(3) NULL DEFAULT NULL," +
+                "  `LOCATION` VARCHAR(100) NULL DEFAULT NULL," +
                 "  `PHOTO` BLOB NULL DEFAULT NULL," +
                 "  `COMMENT` VARCHAR(1000) NULL DEFAULT NULL," +
                 "  PRIMARY KEY (`ID_ANIMAL`)," +
@@ -38,10 +38,10 @@ final class DbTools {
                 "ENGINE = InnoDB " +
                 "AUTO_INCREMENT = 3 " +
                 "DEFAULT CHARACTER SET = utf8;";
-        String str5 = "CREATE TABLE IF NOT EXISTS `" + DB_NAME + "`.`tb_animals` (" +
-                "  `ID_ANIMALS` INT(11) NOT NULL AUTO_INCREMENT," +
+        String str5 = "CREATE TABLE IF NOT EXISTS `" + DB_NAME + "`.`tb_animal` (" +
+                "  `ID_ANIMAL` INT(11) NOT NULL AUTO_INCREMENT," +
+                "  `ID_TYPE` INT(11) NULL DEFAULT NULL," +
                 "  `ID_ZOO` INT(11) NULL DEFAULT NULL," +
-                "  `ID_ANIMAL` INT(11) NULL DEFAULT NULL," +
                 "  `NAME` VARCHAR(40) NULL DEFAULT NULL," +
                 "  `AGE` SMALLINT(3) NULL DEFAULT NULL," +
                 "  `DATE_ADD` DATE NULL DEFAULT NULL," +
@@ -49,7 +49,7 @@ final class DbTools {
                 "  `COMMENT` VARCHAR(1000) NULL DEFAULT NULL," +
                 "  PRIMARY KEY (`ID_ANIMALS`)," +
                 "  INDEX `ID_ZOO_idx` (`ID_ZOO` ASC)," +
-                "  INDEX `ID_ANIMAL_idx` (`ID_ANIMAL` ASC)," +
+                "  INDEX `ID_TYPE_idx` (`ID_TYPE` ASC)," +
                 "  CONSTRAINT `ID_ANIMAL`" +
                 "    FOREIGN KEY (`ID_ANIMAL`)" +
                 "    REFERENCES `zoo_db`.`tb_animal` (`ID_ANIMAL`)" +

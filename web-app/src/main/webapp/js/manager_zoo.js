@@ -7,7 +7,7 @@ var elem = doc.createElement("p");
 var content = doc.createTextNode("Existing Zoos:");
 elem.appendChild(content);
 
-addNewZoo();
+addZoo();
 
 function viewTableZoo(tbObject) {
     var table = doc.getElementById("tb_zoo");
@@ -25,10 +25,17 @@ function viewTableZoo(tbObject) {
     }
 }
 
-function addNewZoo() {
+function addZoo() {
+    var makeWhat = "add";
+    var makeWho = "zoo";
     var nameZoo = doc.getElementById("nameZoo").value;
     var locationZoo = doc.getElementById("locationZoo").value;
-    var reqData = {"nameZoo": nameZoo,"locationZoo": locationZoo};
+    var reqData = {
+        "makeWhat": makeWhat,
+        "makeWho":  makeWho,
+        "nameZoo":  nameZoo,
+        "locationZoo": locationZoo,
+    };
 
     $.ajax({
         type: "POST",
