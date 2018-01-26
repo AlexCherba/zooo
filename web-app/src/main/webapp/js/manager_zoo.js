@@ -28,13 +28,13 @@ function viewTableZoo(tbObject) {
 function addZoo() {
     var makeWhat = "add";
     var makeWho = "zoo";
-    var nameZoo = doc.getElementById("nameZoo").value;
-    var locationZoo = doc.getElementById("locationZoo").value;
+    var nameZoo = doc.getElementById("name").value;
+    var locationZoo = doc.getElementById("location").value;
     var reqData = {
         "makeWhat": makeWhat,
         "makeWho":  makeWho,
-        "nameZoo":  nameZoo,
-        "locationZoo": locationZoo,
+        "name":  name,
+        "location": location,
     };
 
     $.ajax({

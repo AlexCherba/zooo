@@ -19,13 +19,13 @@ final class DbTools {
         String str2 = "USE `" + DB_NAME + "`";
         String str3 = "CREATE TABLE IF NOT EXISTS `" + DB_NAME + "`.`tb_type` (" +
                 "  `ID_TYPE` INT(11) NOT NULL AUTO_INCREMENT," +
-                "  `TYPE` VARCHAR(60) NOT NULL," +
+                "  `NAME` VARCHAR(60) NOT NULL," +
                 "  `MAX_AGE` INT(3) NULL DEFAULT NULL," +
                 "  `LOCATION` VARCHAR(100) NULL DEFAULT NULL," +
                 "  `PHOTO` BLOB NULL DEFAULT NULL," +
                 "  `COMMENT` VARCHAR(1000) NULL DEFAULT NULL," +
-                "  PRIMARY KEY (`ID_ANIMAL`)," +
-                "  UNIQUE INDEX `TYPE_UNIQUE` (`TYPE` ASC)) " +
+                "  PRIMARY KEY (`ID_TYPE`)," +
+                "  UNIQUE INDEX `NAME_UNIQUE` (`NAME` ASC)) " +
                 "ENGINE = InnoDB " +
                 "DEFAULT CHARACTER SET = utf8;";
         String str4 = "CREATE TABLE IF NOT EXISTS `" + DB_NAME + "`.`tb_zoo` (" +
@@ -47,12 +47,12 @@ final class DbTools {
                 "  `DATE_ADD` DATE NULL DEFAULT NULL," +
                 "  `PHOTO` BLOB NULL DEFAULT NULL," +
                 "  `COMMENT` VARCHAR(1000) NULL DEFAULT NULL," +
-                "  PRIMARY KEY (`ID_ANIMALS`)," +
+                "  PRIMARY KEY (`ID_ANIMAL`)," +
                 "  INDEX `ID_ZOO_idx` (`ID_ZOO` ASC)," +
                 "  INDEX `ID_TYPE_idx` (`ID_TYPE` ASC)," +
-                "  CONSTRAINT `ID_ANIMAL`" +
-                "    FOREIGN KEY (`ID_ANIMAL`)" +
-                "    REFERENCES `zoo_db`.`tb_animal` (`ID_ANIMAL`)" +
+                "  CONSTRAINT `ID_TYPE`" +
+                "    FOREIGN KEY (`ID_TYPE`)" +
+                "    REFERENCES `zoo_db`.`tb_type` (`ID_TYPE`)" +
                 "    ON DELETE NO ACTION" +
                 "    ON UPDATE NO ACTION," +
                 "  CONSTRAINT `ID_ZOO`" +
@@ -102,17 +102,17 @@ final class DbTools {
         return false;
     }
 
-    static List<Map<Integer,String>> getSelect(String str) {
+    static List<Map<Integer, String>> getSelect(String str) {
         //String str = "SELECT * FROM " + DB_NAME + ".tb_zoo ;";
-        List<Map<Integer,String>> resultMapList = new ArrayList<Map<Integer, String>>();
+        List<Map<Integer, String>> resultMapList = new ArrayList<Map<Integer, String>>();
         try (Connection dbConnection = getConnection(); Statement statement = dbConnection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(str);
             ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
             int numberOfColumns = resultSetMetaData.getColumnCount();
             while (resultSet.next()) {
-                Map<Integer,String> map = new TreeMap<Integer, String>();
+                Map<Integer, String> map = new TreeMap<Integer, String>();
                 for (int column = 1; column <= numberOfColumns; column++) {
-                    map.put(column,resultSet.getString(column));
+                    map.put(column, resultSet.getString(column));
                     //if (column == numberOfColumns) resultMapList.add(map);
                 }
                 resultMapList.add(map);
@@ -123,7 +123,7 @@ final class DbTools {
         return resultMapList;
     }
 
-    static List<Map<Integer,String>> getAllZoo() {
+    static List<Map<Integer, String>> getAllZoo() {
         String str = "SELECT * FROM " + DB_NAME + ".tb_zoo ;";
         return getSelect(str);
     }
@@ -146,7 +146,32 @@ final class DbTools {
         return false;
     }
 
-    //INSERT INTO `zoo_db`.`tb_zoo` (NAME,ADDRESS) VALUES('Харьковский зоопарк','Харьков');
+    static boolean addType(String table, Map<String, String> map) {
+        String str = "INSERT INTO `" + DB_NAME + "`.`" + table + "` (";
+        for (String column : map.keySet()) {
+            str += column;
+        }
+        str += ") VALUES(";
+        //String str = "INSERT INTO `" + DB_NAME + "`.`tb_type` (NAME,MAX_AGE,LOCATION,PHOTO,COMMENT) VALUES(?,?,?,?,?);";
+        //String str = "INSERT INTO `" + DB_NAME + "`.`tb_type` (NAME,MAX_AGE,LOCATION,PHOTO,COMMENT) VALUES(?,?,?,?,?);";
+        try (Connection dbConnection = getConnection()) {
+            boolean valueExist = isValue(dbConnection, "tb_type", "NAME", typeMap.get("NAME"));
+            System.out.println("checkValue: " + valueExist);
+            if (!valueExist) {
+                PreparedStatement ps = dbConnection.prepareStatement(str);
+                ps.setString(1, typeMap.get("NAME"));
+                ps.setString(2, typeMap.get("MAX_AGE"));
+                ps.setString(3, typeMap.get("LOCATION"));
+                ps.setString(4, typeMap.get("PHOTO"));
+                ps.setString(5, typeMap.get("COMMENT"));
+                ps.execute();
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     static boolean addTypeAnimal(String type, String location, String maxAge, Object photo, String comment) {
         return false;

@@ -18,7 +18,7 @@ public class ManagerZoo {
         return true;
     }
 
-    public static List<Map<Integer,String>> getAllZoo() {
+    public static List<Map<Integer, String>> getAllZoo() {
         return DbTools.getAllZoo();
     }
 }

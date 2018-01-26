@@ -11,17 +11,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class ManagerZooServlet extends HttpServlet {
 
     private void addZoo(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String json = "";
-        String name = req.getParameter("nameZoo");
-        String location = req.getParameter("locationZoo");
+        String name = req.getParameter("name");
+        String location = req.getParameter("location");
         System.out.println("name " + name + ", location " + location);
         boolean isAddZoo = new ManagerZoo().addZoo(name, location);
 
@@ -34,21 +31,23 @@ public class ManagerZooServlet extends HttpServlet {
         mapper.writeValue(resp.getOutputStream(), json);
     }
 
-    private void addType(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String json = "";
-        String name = req.getParameter("nameType");
-        String location = req.getParameter("locationZoo");
-        System.out.println("name " + name + ", location " + location);
-        boolean isAddZoo = new ManagerZoo().addZoo(name, location);
+    private Map<String,String> addType(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String name = req.getParameter("name");
+        String maxAge = req.getParameter("max_age");
+        String location = req.getParameter("location");
+        String photo = req.getParameter("photo");
+        String comment = req.getParameter("comment");
 
-        System.out.println("Add new zoo is " + isAddZoo);
+        Map<String,String> typeMap = new HashMap<>();
+        typeMap.put("name",name);
+        typeMap.put("maxAge",maxAge);
+        typeMap.put("location",location);
+        typeMap.put("photo",photo);
+        typeMap.put("comment",comment);
 
-        List<Map<Integer, String>> mapList = ManagerZoo.getAllZoo();
-
-        ObjectMapper mapper = new ObjectMapper();
-        json = mapper.writeValueAsString(mapList);
-        mapper.writeValue(resp.getOutputStream(), json);
-
+        boolean isAddType = new ManagerType().addType(typeMap);
+        //TypeAnimal newType = TypeAnimal.makeBuilder().name(name).maxAge(maxAge).location(location).photo(photo).comment(comment).build();
+        //boolean isAddType = new ManagerZoo().addType(name, maxAge, location, photo, comment);
     }
 
         @Override
